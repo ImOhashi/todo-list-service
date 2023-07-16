@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mongo:
-    container_name: "zookeeper-todo-list-service"
+    container_name: "mongo-todo-list-service"
     image: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
