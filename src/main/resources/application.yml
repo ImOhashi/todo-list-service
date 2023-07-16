@@ -1,1 +1,30 @@
+### server
+server:
+  port: ${server.port:7000}
 
+### spring
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  data:
+    mongodb:
+      uri: ${mongo.url:mongodb://root:toor@localhost:27017/admin}
+
+### logging
+logging:
+  level:
+    root: INFO
+    com:
+      example: TRACE
+
+### actuator
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, info

@@ -2,12 +2,21 @@ package com.chaosprojectbr.todolistservice.domain.entities;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("task_document")
 public class Task {
 
-    public Task(Builder builder) {
+    @PersistenceCreator
+    public Task(ObjectId _id, String title, String subtitle, String description) {
+        this._id = _id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.description = description;
+    }
+
+    private Task(Builder builder) {
         this.title = builder.title;
         this.subtitle = builder.subtitle;
         this.description = builder.description;
@@ -20,7 +29,19 @@ public class Task {
     private String subtitle;
     private String description;
 
-    static class Builder {
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public static class Builder {
 
         private String title;
         private String subtitle;
