@@ -1,6 +1,6 @@
 ### server
 server:
-  port: ${server.port:7000}
+  port: 8080
 
 ### spring
 spring:
@@ -9,7 +9,7 @@ spring:
       enabled: ALWAYS
   data:
     mongodb:
-      uri: ${mongo.url:mongodb://root:toor@localhost:27017/admin}
+      uri: mongodb://root:toor@localhost:27017/admin
 
 ### logging
 logging:
