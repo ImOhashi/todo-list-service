@@ -2,6 +2,7 @@ package com.chaosprojectbr.todolistservice.domain.services.impl;
 
 import com.chaosprojectbr.todolistservice.application.web.payloads.request.TaskRequest;
 import com.chaosprojectbr.todolistservice.domain.entities.Task;
+import com.chaosprojectbr.todolistservice.domain.entities.enums.STATUS;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.repositories.TaskRepository;
 import com.chaosprojectbr.todolistservice.domain.services.TaskService;
@@ -25,6 +26,7 @@ public class TaskServiceImpl implements TaskService {
                 .setTitle(taskRequest.getTitle())
                 .setSubtitle(taskRequest.getSubtitle())
                 .setDescription(taskRequest.getDescription())
+                .setStatus(STATUS.TODO)
                 .build();
 
         repository.save(task);

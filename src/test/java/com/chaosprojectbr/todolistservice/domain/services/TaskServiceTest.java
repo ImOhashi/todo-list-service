@@ -1,5 +1,6 @@
 package com.chaosprojectbr.todolistservice.domain.services;
 
+import com.chaosprojectbr.todolistservice.domain.entities.enums.STATUS;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.factories.TaskFactory;
 import com.chaosprojectbr.todolistservice.domain.factories.TaskRequestFactory;
@@ -41,6 +42,7 @@ public class TaskServiceTest {
         assertEquals(taskRequestMock.getTitle(), newTask.getTitle());
         assertEquals(taskRequestMock.getSubtitle(), newTask.getSubtitle());
         assertEquals(taskRequestMock.getDescription(), newTask.getDescription());
+        assertEquals(STATUS.TODO, newTask.getStatus());
     }
 
     @Test
