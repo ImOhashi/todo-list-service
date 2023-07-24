@@ -1,6 +1,7 @@
 package com.chaosprojectbr.todolistservice.application.config;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,12 @@ import java.util.HashMap;
 public class KafkaAdminConfig {
 
     private final KafkaProperties kafkaProperties;
+
+    @Value("${spring.kafka.producer.topics.todo-list-topic.name}")
+    private String todoListTopicName;
+
+    @Value("${spring.kafka.producer.topics.todo-list-topic.partitions}")
+    private int todoListTopicPartitions;
 
     public KafkaAdminConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
@@ -31,8 +38,8 @@ public class KafkaAdminConfig {
     public KafkaAdmin.NewTopics newTopics() {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder
-                        .name("todo-list-topic")
-                        .partitions(2)
+                        .name(todoListTopicName)
+                        .partitions(todoListTopicPartitions)
                         .build()
         );
     }
