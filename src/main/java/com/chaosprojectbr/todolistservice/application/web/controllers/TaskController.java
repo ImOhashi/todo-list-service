@@ -1,10 +1,9 @@
 package com.chaosprojectbr.todolistservice.application.web.controllers;
 
 import com.chaosprojectbr.todolistservice.application.web.payloads.request.TaskRequest;
-import com.chaosprojectbr.todolistservice.application.web.payloads.response.TaskResponse;
+import com.chaosprojectbr.todolistservice.domain.entities.Task;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.services.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,16 +15,19 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/task")
 public class TaskController {
 
-    @Autowired
-    private TaskService service;
+    private final TaskService service;
+
+    public TaskController(TaskService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public ResponseEntity<TaskResponse> create(
+    public ResponseEntity<Task> create(
             @RequestBody TaskRequest taskRequest,
             UriComponentsBuilder uriComponentsBuilder
     ) throws TaskAlreadyExistsException {
-        var uri = uriComponentsBuilder.path("/task").buildAndExpand(taskRequest.getTitle()).toUri();
         var task = service.create(taskRequest);
-        return ResponseEntity.created(uri).body(new TaskResponse(task));
+        var uri = uriComponentsBuilder.path("/task").buildAndExpand(task).toUri();
+        return ResponseEntity.created(uri).body(task);
     }
 }

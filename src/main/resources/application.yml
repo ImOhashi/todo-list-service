@@ -10,6 +10,14 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:toor@localhost:27017/admin
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+      topics:
+        todo-list-topic:
+          name: todo-list-topic
+          partitions: 2
+
 
 ### logging
 logging:
