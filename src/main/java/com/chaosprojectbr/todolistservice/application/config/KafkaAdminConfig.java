@@ -37,10 +37,7 @@ public class KafkaAdminConfig {
     @Bean
     public KafkaAdmin.NewTopics newTopics() {
         return new KafkaAdmin.NewTopics(
-                TopicBuilder
-                        .name(todoListTopicName)
-                        .partitions(todoListTopicPartitions)
-                        .build()
+                TopicBuilder.name(todoListTopicName).partitions(todoListTopicPartitions).build()
         );
     }
 }
