@@ -6,8 +6,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 @Document("task_document")
-public class Task {
+public class Task implements Serializable {
 
     @PersistenceCreator
     public Task(ObjectId _id, String title, String subtitle, String description, STATUS status) {

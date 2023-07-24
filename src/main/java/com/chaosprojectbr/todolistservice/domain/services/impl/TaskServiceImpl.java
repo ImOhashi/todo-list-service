@@ -6,15 +6,25 @@ import com.chaosprojectbr.todolistservice.domain.entities.enums.STATUS;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.repositories.TaskRepository;
 import com.chaosprojectbr.todolistservice.domain.services.TaskService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
 
-    public TaskServiceImpl(TaskRepository repository) {
+    private final KafkaTemplate<String, Serializable> kafkaTemplate;
+
+    @Value("${spring.kafka.producer.topics.todo-list-topic.name}")
+    private String todoListTopicName;
+
+    public TaskServiceImpl(TaskRepository repository, KafkaTemplate<String, Serializable> kafkaTemplate) {
         this.repository = repository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
@@ -32,6 +42,7 @@ public class TaskServiceImpl implements TaskService {
                 .build();
 
         repository.save(task);
+        kafkaTemplate.send(todoListTopicName, task);
 
         return task;
     }
