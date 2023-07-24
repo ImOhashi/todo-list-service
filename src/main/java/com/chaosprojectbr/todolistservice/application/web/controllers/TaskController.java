@@ -4,7 +4,6 @@ import com.chaosprojectbr.todolistservice.application.web.payloads.request.TaskR
 import com.chaosprojectbr.todolistservice.application.web.payloads.response.TaskResponse;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.services.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/task")
 public class TaskController {
 
-    @Autowired
-    private TaskService service;
+    private final TaskService service;
+
+    public TaskController(TaskService service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<TaskResponse> create(

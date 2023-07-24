@@ -6,14 +6,16 @@ import com.chaosprojectbr.todolistservice.domain.entities.enums.STATUS;
 import com.chaosprojectbr.todolistservice.domain.exceptions.TaskAlreadyExistsException;
 import com.chaosprojectbr.todolistservice.domain.repositories.TaskRepository;
 import com.chaosprojectbr.todolistservice.domain.services.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private TaskRepository repository;
+    private final TaskRepository repository;
+
+    public TaskServiceImpl(TaskRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Task create(TaskRequest taskRequest) throws TaskAlreadyExistsException {
