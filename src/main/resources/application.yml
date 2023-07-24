@@ -10,6 +10,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:toor@localhost:27017/admin
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
 
 ### logging
 logging:
